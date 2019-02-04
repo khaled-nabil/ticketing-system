@@ -1,10 +1,6 @@
 const User = require( './users');
 
-/**
- * Export a string which contains our GraphQL type definitions.
- */
 const userTypeDefs = `
- 
   type User {
     id: ID!
     email: String!
@@ -39,14 +35,6 @@ const userTypeDefs = `
     deleteUser(id: String!): User
   }
 `;
-
-/**
- * Exporting our resolver functions. Note that:
- * 1. They can use async/await or return a Promise which
- *    Apollo will resolve for us.
- * 2. The resolver property names match exactly with the
- *    schema types.
- */
 const userResolvers = {
     Query: {
         users: async (_, { filter = {} }) => {
@@ -76,5 +64,4 @@ const userResolvers = {
         },
     },
 };
-
 module.exports = {userTypeDefs, userResolvers}
