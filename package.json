@@ -1,0 +1,21 @@
+{
+  "name": "ticketing-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node app.js",
+    "start" : "node app.js"
+  },
+  "author": "khaled-nabil",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.3.3",
+    "apollo-server-express": "^1.4.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-tools": "^4.0.4",
+    "mongoose": "^5.4.9"
+  }
+}
