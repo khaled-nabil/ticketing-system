@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const schema = mongoose.Schema({
+const User = mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -18,9 +18,9 @@ const schema = mongoose.Schema({
         type: String
     }
 });
-schema.set('toObject', { virtuals: true });
-schema.method('toGraph', function toGraph() {
+User.set('toObject', { virtuals: true });
+User.method('toGraph', function toGraph() {
+    console.log("Model",this);
     return JSON.parse(JSON.stringify(this));
 });
-
-module.exports = schema;
+module.exports = mongoose.model('User', User);

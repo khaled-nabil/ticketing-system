@@ -1,11 +1,11 @@
 {
-  "name": "ticketing-system",
+  "title": "ticketing-system",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node app.js",
-    "start" : "node app.js"
+    "start": "node app.js"
   },
   "author": "khaled-nabil",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "graphql": "^14.1.1",
     "graphql-tools": "^4.0.4",
+    "lodash": "^4.17.11",
     "mongoose": "^5.4.9"
   }
 }

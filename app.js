@@ -1,11 +1,16 @@
 const {ApolloServer, gql} = require('apollo-server');
 const {makeExecutableSchema} = require('graphql-tools');
-const mongoose = require ('mongoose');
-const { userResolvers, userTypeDefs } = require('./models/users.schema');
+const {merge} = require('lodash');
+const mongoose = require('mongoose');
+const {userResolvers, userTypeDefs} = require('./schema/users');
+const {ticketsTypeDefs, ticketsResolvers} = require('./schema/tickets');
 
 mongoose.connect(
     "mongodb://localhost:27017/ticketing",
-    { useNewUrlParser: true }
+    {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+    }
 );
 const rootTypeDefs = `
   type Query
@@ -16,12 +21,12 @@ const rootTypeDefs = `
   }
 `;
 const schema = makeExecutableSchema({
-    typeDefs: [rootTypeDefs, userTypeDefs],
-    resolvers: userResolvers,
+    typeDefs: [rootTypeDefs, userTypeDefs, ticketsTypeDefs],
+    resolvers: merge(userResolvers, ticketsResolvers)
 });
 const server = new ApolloServer({
     schema
 });
 server.listen().then(({url}) => {
-    console.log(`🚀  Server ready at ${url}`);
+    console.log(`Server at URL: ${url}`);
 });
