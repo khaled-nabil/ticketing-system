@@ -20,7 +20,6 @@ const User = mongoose.Schema({
 });
 User.set('toObject', { virtuals: true });
 User.method('toGraph', function toGraph() {
-    console.log("Model",this);
     return JSON.parse(JSON.stringify(this));
 });
 module.exports = mongoose.model('User', User);

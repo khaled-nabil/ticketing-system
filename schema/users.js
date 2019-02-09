@@ -42,8 +42,6 @@ const userResolvers = {
     Mutation: {
         addUser: async (_, { input }) => {
             let user =  await User.create(input);
-            console.log("Schema",user);
-            console.log("SchemaGraph",user.toGraph());
             return user.toGraph();
         },
         editUser: async (_, { id, input }) => {

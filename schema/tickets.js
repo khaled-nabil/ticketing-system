@@ -40,8 +40,8 @@ const ticketsTypeDefs = `
 const ticketsResolvers = {
     Query: {
         async Tickets(_, { filter }) {
-            const Tickets= await Tickets.find({}, null, filter);
-            return Tickets.map(Ticket => Ticket.toGraph());
+            const TicketsList= await Tickets.find({}, null, filter);
+            return TicketsList.map(Ticket => Ticket.toGraph());
         },
         async Ticket(_, { id }) {
             const Ticket = await Tickets.findById(id);
