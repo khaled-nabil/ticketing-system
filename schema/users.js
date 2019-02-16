@@ -1,4 +1,6 @@
 const User = require( '../models/users');
+const jwt = require('jsonwebtoken');
+const {SECRET} = require('../constants/authentication');
 
 const userTypeDefs = `
   type User {
@@ -15,7 +17,7 @@ const userTypeDefs = `
     users(filter: UserFilterInput): [User]
     user(id: String!): User
     self: User
-    login(filter: LoginInput): User
+    login(filter: LoginInput): String
   }
   input UserInput {
     email: String
@@ -48,12 +50,15 @@ const userResolvers = {
         },
         self: async (root, args, context) => {
             if(!context.user) return null;
-            let user = await User.findOne({email: context.user});
+            let user = await User.findOne({_id: context.user});
             return user.toGraph();
         },
         login: async (_, {filter:{email, password} }) => {
             let user = await User.findOne({email: email, password: password});
-            return user.toGraph();
+            if(user) {
+                return jwt.sign({id: user._id}, SECRET, { expiresIn: '1h' });
+            }
+            return null;
         },
     },
     Mutation: {
