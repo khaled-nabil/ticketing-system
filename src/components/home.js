@@ -1,28 +1,27 @@
 import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-const Users = () => (
-    <Query
-        query={gql`
-        {
-          users(filter: {limit: 10}) {
-            _id
-            firstName
-            lastName
-            email
-          }
-        }
-    `}
-    >
-        {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
-            return data.users.map(({ _id, firstName, lastName, email}) => (
-                <div key={_id}>
-                    <p>{`${firstName} ${lastName} by ${email}`}</p>
-                </div>
-            ));
-        }}
-    </Query>
-);
-export default Users;
+import {getUsers} from "../constants/queries"
+import { withCookies, Cookies } from 'react-cookie';
+
+class Home extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render(){
+        return (
+            <Query query={getUsers}>
+                {({ loading, error, data }) => {
+                    if (loading) return <p>Loading...</p>;
+                    if (error) return <p>Error :(</p>;
+                    return data.users.map(({ _id, firstName, lastName, email}) => (
+                        <div key={_id}>
+                            <p>{`${firstName} ${lastName} by ${email}`}</p>
+                        </div>
+                    ));
+                }}
+            </Query>
+        )
+    }
+}
+export default Home;

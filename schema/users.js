@@ -14,12 +14,18 @@ const userTypeDefs = `
   extend type Query {
     users(filter: UserFilterInput): [User]
     user(id: String!): User
+    self: User
+    login(filter: LoginInput): User
   }
   input UserInput {
     email: String
     password: String
     firstName: String
     lastName: String
+  }
+  input LoginInput {
+    email: String!
+    password: String!
   }
   extend type Mutation {
     addUser(input: UserInput!): User
@@ -30,12 +36,23 @@ const userTypeDefs = `
 
 const userResolvers = {
     Query: {
-        users: async (_, { filter = {} }) => {
+        users: async (_, { filter = {} }, context) => {
+            if(!context.user) return null;
             let users = await User.find({}, null, filter);
             return users.map(user => user.toGraph());
         },
-        user: async (_, { id }) => {
+        user: async (_, { id }, context) => {
+            if(!context.user) return null;
             let user = await User.findById(id);
+            return user.toGraph();
+        },
+        self: async (root, args, context) => {
+            if(!context.user) return null;
+            let user = await User.findOne({email: context.user});
+            return user.toGraph();
+        },
+        login: async (_, {filter:{email, password} }) => {
+            let user = await User.findOne({email: email, password: password});
             return user.toGraph();
         },
     },
