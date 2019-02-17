@@ -2,7 +2,6 @@ import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import {getUsers} from "../constants/queries"
-import { withCookies, Cookies } from 'react-cookie';
 
 class Home extends React.Component {
     constructor(props) {
