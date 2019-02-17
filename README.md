@@ -1,5 +1,12 @@
 # NOTE
-This repository is still undergoing development.
+This repository is still undergoing development. and not ready to be used yet.
+## Progress so far
+1) Defined GraphQL Schema
+2) Connected GraphQL schema to MongoDB for data persistence using mongoose
+3) Validate user authentication using ApolloServer
+4) Authenticate users using jwt
+5) Connect React app to redux store
+6) React query ApolloServer using ApolloClient
 
 # Application
 A simple ticketing system where multiple users create and assign tickets and update ticket statues
