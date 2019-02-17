@@ -8,7 +8,7 @@
     "webpack": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
     "dev": "nodemon app.js",
-    "test": "concurrently --kill-others \"node app.js\" \"webpack-dev-server --open --mode development\""
+    "test": "concurrently --kill-others \"nodemon app.js\" \"webpack-dev-server --open --mode development\""
   },
   "author": "khaled-nabil",
   "license": "ISC",
@@ -26,9 +26,10 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.4.9",
     "react-apollo": "^2.4.1",
-    "react-cookie": "^3.0.8",
+    "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^7.1.0",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
