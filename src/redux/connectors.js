@@ -2,7 +2,7 @@ import {updateToken} from "./actionCreators"
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateToken: resource => dispatch(updateToken(resource))
+        updateToken: token => dispatch(updateToken(token))
     };
 }
 const mapStateToProps = state => {

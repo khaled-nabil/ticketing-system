@@ -10,4 +10,9 @@ const getUsers =gql`
           }
         }
     `;
-export {getUsers};
+const getToken =gql`
+        query Login($email: String!, $password: String!) {
+          login(filter: {email:$email,password:$password})
+        }
+    `;
+export {getUsers, getToken};
