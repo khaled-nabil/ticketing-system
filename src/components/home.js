@@ -1,20 +1,18 @@
 import React from 'react';
 import {Query} from "react-apollo";
-import ApolloClient from "apollo-boost";
 import {getUsers, getToken} from "../constants/queries"
-import {URI} from "../constants/connection";
 
 class Home extends React.Component {
      constructor(props) {
         super(props);
         this.checkToken().then(() => {
             //TODO: Update ApolloClient with Authorization in the header
-            /*this.props.client = new ApolloClient({
-                uri: URI,
-                headers: {authorization: this.props.token}
-            });*/
+            this.props.configureApollo();
+            /*console.log("Updating Apollo",this.props.token)
+            this.props.client.link = authLink(this.props.token).concat(httpLink);*/
         });
-    }
+         this.checkToken = this.checkToken.bind(this);
+     }
 
     componentDidUpdate() {
         console.log("did update",this.props);
@@ -30,7 +28,7 @@ class Home extends React.Component {
 
     async fetchToken(email, password) {
         const data = await this.tokenizer({email, password});
-        this.props.updateToken({token: data});
+        this.props.updateToken({token: data.login});
     }
 
     tokenizer({email, password}) {
@@ -47,7 +45,7 @@ class Home extends React.Component {
 
     render() {
         if (this.props.token) {
-            console.log("Token found");
+            console.info("Token found");
             return (
                 <Query query={getUsers}>
                     {({loading, error, data}) => {
@@ -62,7 +60,7 @@ class Home extends React.Component {
                 </Query>
             )
         } else {
-            console.log("No Toeken");
+            console.warn("No Token");
             return "You must log in first";
         }
     }
