@@ -5,12 +5,11 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import {Provider, connect} from 'react-redux'
 import {createStore} from 'redux'
 import {ApolloProvider} from "react-apollo";
-import {BrowserRouter, Route} from "react-router-dom";
 import authToken from './redux/reducers'
 import {mapStateToProps, mapDispatchToProps} from './redux/connectors'
-import Home from "./components/home";
+import Root from "./components/root";
 import {authLink, httpLink} from "./helpers/apolloGenerator"
-///import 'bootstrap/dist/css/bootstrap.min.css';
+import css from 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(authToken);
 
@@ -38,13 +37,14 @@ class App extends Component {
     render() {
         return (
             <ApolloProvider client={this.state.client}>
-                <BrowserRouter>
-                    <Route exact path='/' render={() => <Home {...(this.props)} {...(this.state)} configureApollo={this.configureApollo} />}/>
-                </BrowserRouter>
+                <Root {...(this.props)} {...(this.state)} configureApollo={this.configureApollo} />
             </ApolloProvider>
         )
     }
 }
+/*<BrowserRouter>
+    <Route exact path='/' render={() => <Root {...(this.props)} {...(this.state)} configureApollo={this.configureApollo} />}/>
+</BrowserRouter>*/
 
 const ReduxConnector = connect(mapStateToProps, mapDispatchToProps)(App);
 ReactDOM.render(<Provider store={store}><ReduxConnector/></Provider>, document.getElementById("react-loader"));

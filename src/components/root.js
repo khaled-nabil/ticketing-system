@@ -1,8 +1,10 @@
 import React from 'react';
 import {Query} from "react-apollo";
-import {getUsers, getToken} from "../constants/queries"
+import {getToken} from "../constants/queries"
+import Login from "./login"
+import Home from "./home"
 
-class Home extends React.Component {
+class Root extends React.Component {
      constructor(props) {
         super(props);
         this.checkToken().then(() => {
@@ -47,23 +49,12 @@ class Home extends React.Component {
         if (this.props.token) {
             console.info("Token found");
             return (
-                <Query query={getUsers}>
-                    {({loading, error, data}) => {
-                        if (loading) return <p>Loading...</p>;
-                        if (error) return <p>Error :(</p>;
-                        return data.users.map(({_id, firstName, lastName, email}) => (
-                            <div key={_id}>
-                                <p>{`${firstName} ${lastName} by ${email}`}</p>
-                            </div>
-                        ));
-                    }}
-                </Query>
+                <Home />
             )
         } else {
-            console.warn("No Token");
-            return "You must log in first";
+            return <Login />;
         }
     }
 }
 
-export default Home;
+export default Root;
