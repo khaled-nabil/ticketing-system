@@ -9,7 +9,6 @@ import authToken from './redux/reducers'
 import {mapStateToProps, mapDispatchToProps} from './redux/connectors'
 import Root from "./components/root";
 import {authLink, httpLink} from "./helpers/apolloGenerator"
-import css from 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(authToken);
 

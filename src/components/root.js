@@ -8,10 +8,7 @@ class Root extends React.Component {
      constructor(props) {
         super(props);
         this.checkToken().then(() => {
-            //TODO: Update ApolloClient with Authorization in the header
             this.props.configureApollo();
-            /*console.log("Updating Apollo",this.props.token)
-            this.props.client.link = authLink(this.props.token).concat(httpLink);*/
         });
          this.checkToken = this.checkToken.bind(this);
      }
@@ -24,14 +21,10 @@ class Root extends React.Component {
         if (this.props.token)
             return this.props.token;
         else {
-            return await this.fetchToken("helgvlo@gmail.com", "132");
+           // return await this.fetchToken("helgvlo@gmail.com", "132");
         }
     }
 
-    async fetchToken(email, password) {
-        const data = await this.tokenizer({email, password});
-        this.props.updateToken({token: data.login});
-    }
 
     tokenizer({email, password}) {
         return this.props.client.query({
@@ -45,6 +38,11 @@ class Root extends React.Component {
         });
     }
 
+    async fetchToken({email, password}) {
+        const data = await this.tokenizer({email, password});
+        this.props.updateToken({token: data.login});
+    }
+
     render() {
         if (this.props.token) {
             console.info("Token found");
@@ -52,7 +50,7 @@ class Root extends React.Component {
                 <Home />
             )
         } else {
-            return <Login />;
+            return <Login fetchToken={this.fetchToken} />;
         }
     }
 }
