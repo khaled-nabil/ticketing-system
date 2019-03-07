@@ -11,6 +11,7 @@ class Root extends React.Component {
             this.props.configureApollo();
         });
          this.checkToken = this.checkToken.bind(this);
+         this.fetchToken = this.fetchToken.bind(this);
      }
 
     componentDidUpdate() {
@@ -41,11 +42,11 @@ class Root extends React.Component {
     async fetchToken({email, password}) {
         const data = await this.tokenizer({email, password});
         this.props.updateToken({token: data.login});
+        return true;
     }
 
     render() {
         if (this.props.token) {
-            console.info("Token found");
             return (
                 <Home />
             )
