@@ -25,13 +25,14 @@ class App extends Component {
 
     }
     configureApollo() {
-        console.log("Update Apollo Token",this.props.token);
         this.setState({
             client: new ApolloClient({
                 link: authLink(this.props.token).concat(httpLink),
                 cache: new InMemoryCache()
             })
         });
+        if(this.props.token)
+            this.props.setTokenValidity(true);
     }
     render() {
         return (

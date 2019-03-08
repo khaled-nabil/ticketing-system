@@ -13,8 +13,9 @@ class Home extends Component {
                 <Col sm={8}> <Query query={getUsers}>
                     {({loading, error, data}) => {
                         if (loading) return <p>Loading...</p>;
-                        if (error) return <p>Error :(</p>;
-                        return data.users.map(({_id, firstName, lastName, email}) => (
+                        if (error) return `<p>Error :( ${error}</p>`;
+                        console.log(data);
+                        return data.Users.map(({_id, firstName, lastName, email}) => (
                             <div key={_id}>
                                 <p>{`${firstName} ${lastName} by ${email}`}</p>
                             </div>

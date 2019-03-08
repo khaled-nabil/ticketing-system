@@ -7,25 +7,8 @@ import Home from "./home"
 class Root extends React.Component {
      constructor(props) {
         super(props);
-        this.checkToken().then(() => {
-            this.props.configureApollo();
-        });
-         this.checkToken = this.checkToken.bind(this);
          this.fetchToken = this.fetchToken.bind(this);
      }
-
-    componentDidUpdate() {
-        console.log("did update",this.props);
-    }
-
-    async checkToken() {
-        if (this.props.token)
-            return this.props.token;
-        else {
-           // return await this.fetchToken("helgvlo@gmail.com", "132");
-        }
-    }
-
 
     tokenizer({email, password}) {
         return this.props.client.query({
@@ -41,12 +24,13 @@ class Root extends React.Component {
 
     async fetchToken({email, password}) {
         const data = await this.tokenizer({email, password});
-        this.props.updateToken({token: data.login});
+        this.props.updateToken(data.login);
+        this.props.configureApollo();
         return true;
     }
 
     render() {
-        if (this.props.token) {
+        if (this.props.authorized) {
             return (
                 <Home />
             )

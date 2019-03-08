@@ -14,7 +14,7 @@ const userTypeDefs = `
     limit: Int
   }
   extend type Query {
-    users(filter: UserFilterInput): [User]
+    Users(filter: UserFilterInput): [User]
     user(id: String!): User
     self: User
     login(filter: LoginInput): String
@@ -38,7 +38,7 @@ const userTypeDefs = `
 
 const userResolvers = {
     Query: {
-        users: async (_, { filter = {} }, context) => {
+        Users: async (_, { filter = {} }, context) => {
             if(!context.user) return null;
             let users = await User.find({}, null, filter);
             return users.map(user => user.toGraph());
