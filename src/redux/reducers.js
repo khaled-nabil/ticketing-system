@@ -1,15 +1,24 @@
-import {UPDATE_AUTH} from "./constants/actions"
+import {UPDATE_AUTH, SET_TOKEN_VALIDITY} from "./constants/actions"
 
 const initialState = {
-    token: ""
+    token: "",
+    authorized: false
 };
 const authToken = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_AUTH:
-            return action.token;
+            return {
+                token: action.token,
+                authorized: state.authorized
+            };
+        case SET_TOKEN_VALIDITY:
+            return {
+                token: state.token,
+                authorized: action.authorized
+            };
         default:
             return state
     }
-}
+};
 
 export default authToken
