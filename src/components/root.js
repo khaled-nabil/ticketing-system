@@ -5,10 +5,10 @@ import Login from "./login"
 import Home from "./home"
 
 class Root extends React.Component {
-     constructor(props) {
+    constructor(props) {
         super(props);
-         this.fetchToken = this.fetchToken.bind(this);
-     }
+        this.fetchToken = this.fetchToken.bind(this);
+    }
 
     tokenizer({email, password}) {
         return this.props.client.query({
@@ -24,18 +24,16 @@ class Root extends React.Component {
 
     async fetchToken({email, password}) {
         const data = await this.tokenizer({email, password});
-        this.props.updateToken(data.login);
-        this.props.configureApollo();
-        return true;
+        this.props.configureApollo(data.login);
     }
 
     render() {
         if (this.props.authorized) {
             return (
-                <Home />
+                <Home/>
             )
         } else {
-            return <Login fetchToken={this.fetchToken} />;
+            return <Login fetchToken={this.fetchToken}/>;
         }
     }
 }
