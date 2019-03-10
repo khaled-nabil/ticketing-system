@@ -26,7 +26,7 @@ class Login extends Component {
             <div>
                 <Row id={"login-panel"} className={"justify-content-sm-center"}>
                     <Col sm="4" className={"border mt-5 py-3"}>
-                        <h1 className={"h4 text-center"}>"Login"</h1>
+                        <h1 className={"h4 text-center"}>Login</h1>
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label for="emailAddress">Email</Label>
@@ -39,7 +39,7 @@ class Login extends Component {
                                        placeholder="password placeholder" value={this.state.password}
                                        onChange={this.handleChange}/>
                             </FormGroup>
-                            <Button>Submit</Button>
+                            <Button type={"submit"} className={"submitForm"}>Submit</Button>
                         </Form>
                     </Col>
                 </Row>
