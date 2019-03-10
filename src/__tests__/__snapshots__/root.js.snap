@@ -1,10 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UI Tests Snapshot test 1`] = `
-Object {
-  "props": Object {
-    "authorized": false,
-  },
-  "wrapper": ReactWrapper {},
-}
-`;
+exports[`UI Tests Snapshot test 1`] = `ShallowWrapper {}`;

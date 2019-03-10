@@ -1,33 +1,28 @@
 import React from 'react';
-import { shallow , mount } from 'enzyme';
+import { shallow , mount, render } from 'enzyme';
 import Root from '../components/root';
-import Login from '../components/login';
 
 const setup = propOverrides => {
     const props = Object.assign({
         authorized: false
     }, propOverrides);
 
-    const wrapper = mount(<Root {...props} />);
+    const wrapper = render(<Root {...props} />);
 
     return {
         props,
-        wrapper
+        wrapper,
+        login: wrapper.find("#login-panel").length
     }
 };
 
 describe('UI Tests', () => {
     it('Snapshot test', () => {
-        const component = setup();
+        const component = shallow(<Root />);
         expect(component).toMatchSnapshot();
     });
-    it('Load login screen',()=>{
+    it('Load login screen when no valid token',()=>{
         const component = setup();
-        const login = shallow(<Login />);
-        console.log(component.wrapper);
-        console.log(login);
-        expect(true).toBe(true);
-       // expect(component.wrapper).toMatch(login);
-
+        expect(component.login).toEqual(1);
     });
 });

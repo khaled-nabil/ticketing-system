@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {Row, Col, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 class Login extends Component {
@@ -23,25 +23,27 @@ class Login extends Component {
 
     render() {
         return (
-            <Row className={"justify-content-sm-center"}>
-                <Col sm="4" className={"border mt-5 py-3"}>
-                    <h1 className={"h4 text-center"}>"Login"</h1>
-                    <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <Label for="emailAddress">Email</Label>
-                            <Input type="email" name="email" id="emailAddress" placeholder="with a placeholder"
-                                   value={this.state.email} onChange={this.handleChange}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="userPassword">Password</Label>
-                            <Input type="password" name="password" id="userPassword"
-                                   placeholder="password placeholder" value={this.state.password}
-                                   onChange={this.handleChange}/>
-                        </FormGroup>
-                        <Button>Submit</Button>
-                    </Form>
-                </Col>
-            </Row>
+            <div>
+                <Row id={"login-panel"} className={"justify-content-sm-center"}>
+                    <Col sm="4" className={"border mt-5 py-3"}>
+                        <h1 className={"h4 text-center"}>"Login"</h1>
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <Label for="emailAddress">Email</Label>
+                                <Input type="email" name="email" id="emailAddress" placeholder="with a placeholder"
+                                       value={this.state.email} onChange={this.handleChange}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="userPassword">Password</Label>
+                                <Input type="password" name="password" id="userPassword"
+                                       placeholder="password placeholder" value={this.state.password}
+                                       onChange={this.handleChange}/>
+                            </FormGroup>
+                            <Button>Submit</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }

@@ -32,7 +32,7 @@ class Root extends React.Component {
                 <Home/>
             )
         } else {
-           return <Login fetchToken={this.fetchToken}/>;
+            return  <Login fetchToken={this.fetchToken}/>;
         }
     }
 }
