@@ -1,5 +1,4 @@
 import React from 'react';
-import {Query} from "react-apollo";
 import {getToken} from "../constants/queries"
 import Login from "./login"
 import Home from "./home"
@@ -33,7 +32,7 @@ class Root extends React.Component {
                 <Home/>
             )
         } else {
-            return <Login fetchToken={this.fetchToken}/>;
+           return <Login fetchToken={this.fetchToken}/>;
         }
     }
 }

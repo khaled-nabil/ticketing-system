@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"mongod --dbpath=c:/mongodata\" \"nodemon app.js\" \"webpack-dev-server --open --mode development\"",
-    "webpack": "webpack-dev-server --open --mode development",
+    "start": "concurrently --kill-others \"mongod --dbpath=c:/mongodata\" \"nodemon ./server/app.js\" \"webpack-dev-server --open --mode development\"",
     "build": "webpack --mode production",
-    "dev": "nodemon app.js",
-    "test": "concurrently --kill-others \"mongod --dbpath=c:/mongodata\" \"node app.js\""
+    "webpack": "webpack-dev-server --open --mode development",
+    "dev": "concurrently --kill-others \"mongod --dbpath=c:/mongodata\" \"nodemon ./server/app.js\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "author": "khaled-nabil",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.3.4",
     "apollo-boost": "^0.1.27",
     "apollo-cache-inmemory": "^1.4.3",
     "apollo-client": "^2.4.13",
@@ -39,19 +42,31 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.3.1",
     "babel-loader": "^8.0.5",
     "concurrently": "^4.1.0",
     "css-loader": "^2.1.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "enzyme-to-json": "^3.3.5",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.3.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }

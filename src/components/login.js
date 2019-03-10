@@ -5,8 +5,8 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'helgvlo@gmail.com',
-            password: '132'
+            email: 'test@test.com',
+            password: '123'
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +18,6 @@ class Login extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        //TODO: pass tokenizer method to get token
         this.props.fetchToken(this.state);
     }
 
