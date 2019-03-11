@@ -4,6 +4,9 @@ import {getTickets} from "../constants/queries";
 import {Row, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck, CardSubtitle, CardBody} from 'reactstrap';
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <Fragment>

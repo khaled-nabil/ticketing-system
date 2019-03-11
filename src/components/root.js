@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import {getToken} from "../constants/queries"
 import Login from "./login"
 import Home from "./home"
+import Tickets from "./tickets"
+import Header from "./portlets/header"
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 
-class Root extends React.Component {
+class Root extends Component {
     constructor(props) {
         super(props);
         this.fetchToken = this.fetchToken.bind(this);
@@ -29,12 +32,20 @@ class Root extends React.Component {
     render() {
         if (this.props.authorized) {
             return (
-                <Home/>
+                <BrowserRouter>
+                    <Fragment>
+                        <Route path='/' render={() => <Header/>}/>
+                        <Switch>
+                            <Route exact path='/' render={() => <Home/>}/>
+                            <Route path='/tickets' render={() => <Tickets/>}/>
+                        </Switch>
+                    </Fragment>
+                </BrowserRouter>
             )
         } else {
-            return  <Login fetchToken={this.fetchToken}/>;
+            return <Login fetchToken={this.fetchToken}/>;
         }
     }
 }
-
-export default Root;
+//TODO configure withRouter correctly to load on click
+export default withRouter(Root);

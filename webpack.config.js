@@ -1,6 +1,9 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
     entry: ["@babel/polyfill", "./src/"],
+    output: {
+        publicPath: '/'
+    },
     module: {
         rules: [
             {
@@ -23,6 +26,9 @@ module.exports = {
                 ]
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebPackPlugin({
