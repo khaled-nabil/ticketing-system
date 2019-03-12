@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import React, {Component} from "react";
+import {Route, Switch} from "react-router-dom";
 import Create from "./create";
 import View from "./view";
 
@@ -9,12 +9,11 @@ class Tickets extends Component {
     }
 
     render() {
-        return (<BrowserRouter>
+        return (
             <Switch>
-                <Route exact path='/tickets' render={() => <View/>}/>
-                <Route path='/tickets/create' render={() => <Create/>}/>
-            </Switch>
-        </BrowserRouter>);
+                <Route path={`${this.props.match.path}/create`} component={Create}/>
+                <Route exact path={`${this.props.match.path}`} component={View}/>
+            </Switch>);
     }
 }
 

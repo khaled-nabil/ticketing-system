@@ -4,7 +4,7 @@ import Login from "./login"
 import Home from "./home"
 import Tickets from "./tickets"
 import Header from "./portlets/header"
-import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 class Root extends Component {
     constructor(props) {
@@ -34,10 +34,10 @@ class Root extends Component {
             return (
                 <BrowserRouter>
                     <Fragment>
-                        <Route path='/' render={() => <Header/>}/>
+                        <Header/>
                         <Switch>
-                            <Route exact path='/' render={() => <Home/>}/>
-                            <Route path='/tickets' render={() => <Tickets/>}/>
+                            <Route exact path='/' component={Home}/>
+                            <Route path='/tickets' component={Tickets}/>
                         </Switch>
                     </Fragment>
                 </BrowserRouter>
@@ -47,5 +47,4 @@ class Root extends Component {
         }
     }
 }
-//TODO configure withRouter correctly to load on click
-export default withRouter(Root);
+export default Root;

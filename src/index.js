@@ -10,7 +10,6 @@ import {mapStateToProps, mapDispatchToProps} from './redux/connectors'
 import Root from "./components/root";
 import {validateLogin} from "./constants/queries"
 import {authLink, httpLink} from "./helpers/apolloGenerator"
-import {BrowserRouter, Route} from "react-router-dom";
 
 const store = createStore(authToken);
 
@@ -51,15 +50,12 @@ class App extends Component {
     render() {
         return (
             <ApolloProvider client={this.state.client}>
-                <BrowserRouter>
-                    <Route path='/' render={() => <Root {...(this.props)} {...(this.state)}
-                                                        configureApollo={this.configureApollo}/>}/>
-                </BrowserRouter>
+                <Root {...(this.props)} {...(this.state)}
+                      configureApollo={this.configureApollo}/>
             </ApolloProvider>
         )
     }
 }
-
 
 const ReduxConnector = connect(mapStateToProps, mapDispatchToProps)(App);
 ReactDOM.render(<Provider store={store}><ReduxConnector/></Provider>, document.getElementById("react-loader"));
