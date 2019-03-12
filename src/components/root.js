@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {getToken} from "../constants/queries"
 import Login from "./login"
-import Home from "./home"
+import Dashboard from "./dashboard"
 import Tickets from "./tickets"
-import Header from "./portlets/header"
+import Header from "./shared/header"
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 class Root extends Component {
@@ -36,7 +36,7 @@ class Root extends Component {
                     <Fragment>
                         <Header/>
                         <Switch>
-                            <Route exact path='/' component={Home}/>
+                            <Route exact path='/' component={Dashboard}/>
                             <Route path='/tickets' component={Tickets}/>
                         </Switch>
                     </Fragment>

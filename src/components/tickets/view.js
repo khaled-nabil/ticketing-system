@@ -1,13 +1,14 @@
 import React, {Fragment} from "react";
-import {Card, CardBody, CardDeck, CardSubtitle, CardText, CardTitle, Col, Row} from "reactstrap";
+import {CardDeck, Col, Row } from "reactstrap";
 import {Query} from "react-apollo";
 import {getTickets} from "../../constants/queries";
+import {TicketCard} from "../shared/renderers/ticket-cards";
 
-const Create = ({ match }) => {
+const Create = ({match}) => {
     return (<Fragment>
         <Row>
             <Col>
-                Current tickets in the system
+                <h1>Current tickets in the system</h1>
             </Col>
         </Row>
         <Row className="mt-2">
@@ -17,16 +18,7 @@ const Create = ({ match }) => {
                         {({loading, error, data}) => {
                             if (loading) return <Col><p>Loading...</p></Col>;
                             if (error) return <Col><p>Error {error}</p></Col>;
-                            return data.Tickets.map(({_id, title, body, user}) => (
-                                <Card key={_id}>
-                                    <CardBody>
-                                        <CardTitle>{title}</CardTitle>
-                                        <CardSubtitle>Created
-                                            by: {user.firstName} {user.lastName}</CardSubtitle>
-                                        <CardText>{body}</CardText>
-                                    </CardBody>
-                                </Card>
-                            ));
+                            return <TicketCard tickets={data.Tickets}/>
                         }}
                     </Query>
                 </CardDeck>
