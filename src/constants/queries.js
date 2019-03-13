@@ -39,7 +39,7 @@ export const getToken = gql`
 export const getTicketTypes = gql`
 {
   types: __type(name: "types") {
-    enumValues {
+    values:enumValues {
       name
     }
   }
@@ -47,7 +47,7 @@ export const getTicketTypes = gql`
 export const getTicketStates = gql`
 {
   states: __type(name: "states") {
-    enumValues {
+    values:enumValues {
       name
     }
   }
@@ -55,12 +55,12 @@ export const getTicketStates = gql`
 export const getAllEnums = gql`
 {
   types: __type(name: "types") {
-    enumValues {
+    values:enumValues {
       name
     }
   }
   states: __type(name: "states") {
-    enumValues {
+    values:enumValues {
       name
     }
   }
