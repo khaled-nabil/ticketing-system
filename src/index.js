@@ -16,17 +16,28 @@ const store = createStore(authToken);
 class App extends Component {
     constructor(props) {
         super(props);
+        let token = localStorage.getItem("token");
+        //TODO: Validate Token then pass
         this.state = {
             client: new ApolloClient({
-                link: authLink(this.props.token).concat(httpLink),
+                link: authLink(token).concat(httpLink),
                 cache: new InMemoryCache()
             })
         };
         this.configureApollo = this.configureApollo.bind(this);
-        let token = localStorage.getItem("token");
-        if (token) this.configureApollo(token);
+        this.validateToken = this.validateToken.bind(this);
     }
-
+    validateToken(token) {
+        //TODO: Move ticket validation to Server end on request
+        return this.state.client.query({
+            query: validateLogin
+        }).then(response => {
+            return !!response.data.self;
+        }).catch(error => {
+            console.warn(error);
+            return false
+        });
+    }
     configureApollo(token) {
         this.props.updateToken(token);
         localStorage.setItem("token", token);
@@ -36,18 +47,12 @@ class App extends Component {
                 cache: new InMemoryCache()
             })
         });
-        let validToken = this.state.client.query({
-            query: validateLogin
-        }).then(response => {
-            return !!response.data.self;
-        }).catch(error => {
-            console.warn(error);
-            return false
-        });
+        let validToken = this.validateToken(token);
         this.props.setTokenValidity(validToken);
     }
 
     render() {
+        //TODO: AolloProvider does not update
         return (
             <ApolloProvider client={this.state.client}>
                 <Root {...(this.props)} {...(this.state)}

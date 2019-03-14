@@ -13,9 +13,9 @@ const ticketsTypeDefs = `
     status: states!
   }
   input TicketInput {
-    title: String
-    body: String
-    type: String
+    title: String!
+    body: String!
+    type: String!
     userId: String
     status: String
   }
@@ -39,17 +39,21 @@ const ticketsTypeDefs = `
 
 const ticketsResolvers = {
     Query: {
-        async Tickets(_, { filter }) {
+        async Tickets(_, { filter }, context) {
+            if(!context.user) return null;
             const TicketsList= await Tickets.find({}, null, filter);
             return TicketsList.map(Ticket => Ticket.toGraph());
         },
-        async Ticket(_, { id }) {
+        async Ticket(_, { id }, context) {
+            if(!context.user) return null;
             const Ticket = await Tickets.findById(id);
             return Ticket.toGraph();
         },
     },
     Mutation: {
-        async addTicket(_, { input }) {
+        async addTicket(_, { input }, context) {
+            if(!context.user) return null;
+            input.userId = context.user;
             const Ticket = await Tickets.create(input);
             return Ticket.toGraph();
         },
