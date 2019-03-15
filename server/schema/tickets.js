@@ -1,6 +1,7 @@
 const Tickets = require( '../models/tickets');
 const User = require( '../models/users');
 const {ticketTypes, ticketStatus} = require("../constants/schmas");
+const {AuthenticationError} = require('apollo-server');
 
 const ticketsTypeDefs = `
   type Ticket {
@@ -40,19 +41,20 @@ const ticketsTypeDefs = `
 const ticketsResolvers = {
     Query: {
         async Tickets(_, { filter }, context) {
-            if(!context.user) return null;
+            if(!context.user) throw new AuthenticationError('login required');
             const TicketsList= await Tickets.find({}, null, filter);
             return TicketsList.map(Ticket => Ticket.toGraph());
         },
         async Ticket(_, { id }, context) {
-            if(!context.user) return null;
+            if(!context.user) throw new AuthenticationError('login required');
             const Ticket = await Tickets.findById(id);
             return Ticket.toGraph();
         },
     },
     Mutation: {
         async addTicket(_, { input }, context) {
-            if(!context.user) return null;
+            if(!context.user) throw new AuthenticationError('login required');
+            //TODO check if id defined, if not use user id from token
             input.userId = context.user;
             const Ticket = await Tickets.create(input);
             return Ticket.toGraph();
@@ -64,7 +66,7 @@ const ticketsResolvers = {
                 const user = await User.findById(ticket.userId);
                 return user.toGraph();
             }
-            return null;
+            throw new AuthenticationError('login required');
         }
     }
 };

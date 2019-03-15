@@ -4,7 +4,6 @@ import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {Provider, connect} from 'react-redux'
 import {createStore} from 'redux'
-import {ApolloProvider} from "react-apollo";
 import authToken from './redux/reducers'
 import {mapStateToProps, mapDispatchToProps} from './redux/connectors'
 import Root from "./components/root";
@@ -17,7 +16,6 @@ class App extends Component {
     constructor(props) {
         super(props);
         let token = localStorage.getItem("token");
-        //TODO: Validate Token then pass
         this.state = {
             client: new ApolloClient({
                 link: authLink(token).concat(httpLink),
@@ -27,17 +25,26 @@ class App extends Component {
         this.configureApollo = this.configureApollo.bind(this);
         this.validateToken = this.validateToken.bind(this);
     }
-    validateToken(token) {
+
+    componentDidMount() {
+        if(localStorage.getItem("token"))
+            this.validateToken()
+    }
+
+    validateToken() {
         //TODO: Move ticket validation to Server end on request
-        return this.state.client.query({
+        this.state.client.query({
             query: validateLogin
         }).then(response => {
+            this.props.setTokenValidity(!!response.data.self);
             return !!response.data.self;
         }).catch(error => {
             console.warn(error);
             return false
         });
+
     }
+
     configureApollo(token) {
         this.props.updateToken(token);
         localStorage.setItem("token", token);
@@ -47,17 +54,13 @@ class App extends Component {
                 cache: new InMemoryCache()
             })
         });
-        let validToken = this.validateToken(token);
-        this.props.setTokenValidity(validToken);
+        this.validateToken();
     }
 
     render() {
-        //TODO: AolloProvider does not update
         return (
-            <ApolloProvider client={this.state.client}>
-                <Root {...(this.props)} {...(this.state)}
-                      configureApollo={this.configureApollo}/>
-            </ApolloProvider>
+            <Root {...(this.props)} {...(this.state)}
+                  configureApollo={this.configureApollo}/>
         )
     }
 }

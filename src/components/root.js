@@ -5,6 +5,7 @@ import Dashboard from "./dashboard"
 import Tickets from "./tickets"
 import Header from "./shared/header"
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {ApolloProvider} from "react-apollo";
 
 class Root extends Component {
     constructor(props) {
@@ -20,13 +21,15 @@ class Root extends Component {
             return response.data
         }).catch(error => {
             console.warn(error);
-            return {}
+            return false
         });
     }
 
     async fetchToken({email, password}) {
         const data = await this.tokenizer({email, password});
-        this.props.configureApollo(data.login);
+        if(data)
+            this.props.configureApollo(data.login);
+        return !!data;
     }
 
     render() {
@@ -35,10 +38,10 @@ class Root extends Component {
                 <BrowserRouter>
                     <Fragment>
                         <Header/>
-                        <Switch>
+                        <ApolloProvider client={this.props.client}>
                             <Route exact path='/' component={Dashboard}/>
-                            <Route path='/tickets' component={Tickets}/>
-                        </Switch>
+                            <Route path='/tickets' render={(props) => <Tickets {...props} client={this.props.client} />}/>
+                        </ApolloProvider>
                     </Fragment>
                 </BrowserRouter>
             )
@@ -47,4 +50,5 @@ class Root extends Component {
         }
     }
 }
+
 export default Root;

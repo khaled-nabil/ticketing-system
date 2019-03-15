@@ -1,7 +1,7 @@
 const User = require( '../models/users');
 const jwt = require('jsonwebtoken');
 const {SECRET} = require('../constants/authentication');
-
+const {AuthenticationError} = require('apollo-server');
 const userTypeDefs = `
   type User {
     _id: ID!
@@ -58,7 +58,7 @@ const userResolvers = {
             if(user) {
                 return jwt.sign({id: user._id}, SECRET, { expiresIn: '1h' });
             }
-            return null;
+            throw new AuthenticationError('user not found');
         },
     },
     Mutation: {

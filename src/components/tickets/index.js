@@ -11,7 +11,7 @@ class Tickets extends Component {
     render() {
         return (
             <Switch>
-                <Route path={`${this.props.match.path}/create`} component={Create}/>
+                <Route path={`${this.props.match.path}/create`} render={(props) => <Create {...props} client={this.props.client} />}/>
                 <Route exact path={`${this.props.match.path}`} component={View}/>
             </Switch>);
     }

@@ -36,6 +36,14 @@ export const getToken = gql`
           login(filter: {email:$email,password:$password})
         }
     `;
+export const createTicket = gql`
+mutation newTicket($title:String!,$body:String!,$type:String!){
+  addTicket(input: {
+    title: $title,
+    body: $body,
+    type: $type
+  }) {_id}
+}`;
 export const getTicketTypes = gql`
 {
   types: __type(name: "types") {
