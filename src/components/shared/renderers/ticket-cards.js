@@ -2,7 +2,7 @@ import React from "react";
 import {Card, CardBody, CardSubtitle, CardText, CardTitle} from "reactstrap";
 
 const card = ({_id, title, body, user}) => {
-    return (<Card key={_id}>
+    return (<Card key={_id} className={"my-2"}>
         <CardBody>
             <CardTitle>{title}</CardTitle>
             <CardSubtitle>Created

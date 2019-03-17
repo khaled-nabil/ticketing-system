@@ -9,7 +9,7 @@ import {mapStateToProps, mapDispatchToProps} from './redux/connectors'
 import Root from "./components/root";
 import {validateLogin} from "./constants/queries"
 import {authLink, httpLink} from "./helpers/apolloGenerator"
-
+import "./assets/css/main.css"
 const store = createStore(authToken);
 
 class App extends Component {

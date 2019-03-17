@@ -2,6 +2,7 @@ import React, {Component, Fragment} from "react";
 import {Col, Row, Button, Form, FormGroup, Label, Input, CardDeck, Alert} from 'reactstrap';
 import {Query} from "react-apollo";
 import {getTicketTypes, createTicket} from "../../constants/queries";
+import {Redirect} from "react-router-dom";
 
 const RenderTypes = (data) => {
     return (<FormGroup>
@@ -38,7 +39,11 @@ class Create extends Component {
         this.setState({error: false});
         let valid = await this.props.client.mutate({
             mutation: createTicket,
-            variables: {title: this.state.formData.title, body: this.state.formData.body, type:this.state.formData.type}
+            variables: {
+                title: this.state.formData.title,
+                body: this.state.formData.body,
+                type: this.state.formData.type
+            }
         }).then(response => {
             return response.data
         }).catch(error => {
@@ -46,6 +51,8 @@ class Create extends Component {
             return false
         });
         this.setState({error: !valid});
+        if (valid)
+            this.props.history.push(`/tickets`)
     }
 
     render() {
@@ -57,7 +64,8 @@ class Create extends Component {
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                     <Label for="ticketTitle">Title</Label>
-                    <Input type="text" name="title" id="ticketTitle" placeholder="Ticket Title" value={this.state.formData.title}
+                    <Input type="text" name="title" id="ticketTitle" placeholder="Ticket Title"
+                           value={this.state.formData.title}
                            onChange={this.handleChange}/>
                 </FormGroup>
                 <FormGroup>
