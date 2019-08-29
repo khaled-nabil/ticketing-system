@@ -25,6 +25,9 @@ Install `concurrently`
 Install `mongodb`
         
     sudo apt install mongodb-server-core
+
+Install `nodemon`
+    sudo npm install -g nodemon
 Install `apollo`
 
     npm i -g apollo@2.4.4
@@ -35,3 +38,8 @@ Install `apollo`
 # Generating the types from schema
     apollo schema:download --endpoint http://localhost:4000 schema.json    
     apollo client:codegen --localSchemaFile schema.json --target typescript __generated__
+
+# Tips
+if you run into `[nodemon] Internal watch failed: watch ENOSPC` error while starting nodemon then run the follow:
+
+    echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
