@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"mongod --dbpath=c:/mongodata\" \"nodemon ./server/app.js\" \"webpack-dev-server --open --mode development\"",
+    "start": "concurrently --kill-others \"mongod --dbpath=./mongodata\" \"nodemon ./server/app.js\" \"webpack-dev-server --open --mode development\"",
     "build": "webpack --mode production",
     "webpack": "webpack-dev-server --open --mode development",
-    "dev": "concurrently --kill-others \"mongod --dbpath=c:/mongodata\" \"nodemon ./server/app.js\"",
+    "dev": "concurrently --kill-others \"mongod --dbpath=./mongodata\" \"nodemon ./server/app.js\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
