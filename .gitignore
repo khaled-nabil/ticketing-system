@@ -1,2 +1,5 @@
 .idea/
 node_modules/
+mongodata/
+mongodata/mongod.lock
+package-lock.json
