@@ -18,11 +18,20 @@ As a front-end, react connects to the ApolloServer using react-apollo and using 
 
 
 # Installation notes
-Some prominent libraries involved
-## Generating the types from schema
+## Dependencies
+Install `concurrently`
+        
+    sudo npm install -g concurrently
+Install `mongodb`
+        
+    sudo apt install mongodb-server-core
+Install `apollo`
+
     npm i -g apollo@2.4.4
-    apollo schema:download --endpoint http://localhost:4000 schema.json    
-    apollo client:codegen --localSchemaFile schema.json --target typescript __generated__
 ## ReactStrap: Bootstrap 4
     npm install --save bootstrap
     npm install --save reactstrap
+
+# Generating the types from schema
+    apollo schema:download --endpoint http://localhost:4000 schema.json    
+    apollo client:codegen --localSchemaFile schema.json --target typescript __generated__
