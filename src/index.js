@@ -31,7 +31,6 @@ class App extends Component {
         cache: new InMemoryCache(),
       }),
     };
-    console.log();
     this.configureApollo = this.configureApollo.bind(this);
     this.validateToken = this.validateToken.bind(this);
   }
